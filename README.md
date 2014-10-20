@@ -34,6 +34,7 @@ There will be two projects / assemblies. These will be:
 
 
 ### MoonSharp Project
+Please see links below for Xanathar's Moonsharp (Moon#) assembly
 
 #### Project Page
 http://www.moonsharp.org/
