@@ -52,7 +52,7 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
         }
 
         [TestMethod]
-        public void Test_GetMember_ForInvalidKey_ReturnsNull()
+        public void Test_GetMember_ForInvalidKey_ReturnsDataTypeOfNil()
         {
             // Arrange
             String luaScript = MockLuaScripts.TEST_OBJECT_WITH_STRING;
@@ -64,7 +64,7 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
             DynValue resultMember = resultObject.GetMember("donkey");           /* Get the member */
 
             // Assert
-            Assert.IsNull(resultMember);
+            Assert.AreEqual(DataType.Nil, resultMember.Type);
         }
 
         [TestMethod]
@@ -91,8 +91,8 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
         #region GetProperty
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Test_GetProperty_ForNullKey_ThrowsArgumentOutOfRangeException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Test_GetProperty_ForNullKey_ThrowsAArgumentNullException()
         {
             // Arrange
             String luaScript = MockLuaScripts.TEST_OBJECT_WITH_STRING;
@@ -104,7 +104,7 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
             String result = resultObject.GetPropertyValue<String>(null);        /* Get the property */
 
             // Assert
-            // We should not get here as an "ArgumentOutOfRangeException" error 
+            // We should not get here as an "ArgumentNullException" error 
             // should be thrown by now
         }
 

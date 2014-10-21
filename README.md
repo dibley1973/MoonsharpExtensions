@@ -38,7 +38,7 @@ There will be two projects / assemblies. These will be:
     ...
     }
 ```
-###### GetProperty
+###### GetPropertyValue
 ```cs
     /// <summary>
     /// Gets the value of the property defined by the specified key.
@@ -59,7 +59,7 @@ There will be two projects / assemblies. These will be:
     /// <exception cref="System.InvalidCastException">
     /// Thrown if the source (property value) and target types do not match
     /// </exception>
-    public static T GetProperty<T>(this DynValue instance, String key)
+    public static T GetPropertyValue<T>(this DynValue instance, String key)
     {
     ...
     }

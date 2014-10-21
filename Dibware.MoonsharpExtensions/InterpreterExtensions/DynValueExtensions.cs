@@ -58,13 +58,6 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
             // Get the type of the table value
             DataType tableValueDataType = tableValue.Type;
 
-            // See if a nil type was returned indicating the key did not exist...
-            if (tableValueDataType == DataType.Nil)
-            {
-                // .. and return null
-                return null;
-            }
-
             // Return the table value as it is
             return tableValue;
         }
@@ -90,9 +83,8 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
         /// </exception>
         public static T GetPropertyValue<T>(this DynValue instance, String key)
         {
-            // DEV NOTE:
-            // Need to refactor this method to use the "GetMember()" method once
-            // it has passed tests...
+            // Guard against a NULL key having been supplied
+            Guard.ArgumentIsNotNullOrEmpty(key, "key");
 
             // Get the target type
             Type targetType = typeof(T);
@@ -103,17 +95,12 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
                 throw new TypeParameterException(ExceptionMesssages.InvalidTypeParameterEncountered);
             }
 
-            // Guard against a NULL key having been supplied
-            if (String.IsNullOrEmpty(key))
-            {
-                throw new ArgumentOutOfRangeException(ExceptionMesssages.KeyNotNull);
-            }
-
             // DEV NOTE:
             // Ideally we would like to check if the key exists in the table 
-            // before trying to access the value, but there is no method to
-            // acheive this with a String key parameter. Instead we will have 
-            // to do this later after trying to get the value.
+            // before trying to access the value, but there is I have not yet 
+            // a great enough understanding of teh API to acheive this with a 
+            // String key parameter. Instead we will have to do this later after 
+            // trying to get the value.
             //if (instance.Table.Values.Contains(key))
             //{
             //    throw new ArgumentOutOfRangeException(ExceptionMesssages.NoValueWasFoundForTheSuppliedKey);
@@ -121,7 +108,7 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
 
             // Get the value. This will throw an "System.ArgumentOutOfRangeException"
             // for us if the key does not exist. However See DEV NOTE above...
-            var tableValue = instance.Table.Get(key);
+             var tableValue = instance.GetMember(key);
 
             // Get the type of the table value
             DataType tableValueDataType = tableValue.Type;
