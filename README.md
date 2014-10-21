@@ -17,6 +17,28 @@ There will be two projects / assemblies. These will be:
 
 
 ###Dibware.MoonsharpExtensions.InterpreterExtensions
+
+#### ScriptExtensions
+##### Public Members
+####### GetObject
+```
+    /// <summary>
+    /// Gets the object specified.
+    /// </summary>
+    /// <param name="instance">The script instance to get the object from.</param>
+    /// <param name="key">The key of teh object to get.</param>
+    /// <returns>
+    /// Returns DynValue of type Table for a valid key or a DynValue with a 
+    /// DataType of Nil if teh key is invalid
+    /// </returns>
+    /// <exception cref="System.ArgumentNullException">
+    /// Thrown if the key is null or empty
+    /// </exception>
+    public static DynValue GetObject(this Script instance, String key)
+    {
+    }
+```
+
 #### DynValueExtensions
 ##### Public Members
 

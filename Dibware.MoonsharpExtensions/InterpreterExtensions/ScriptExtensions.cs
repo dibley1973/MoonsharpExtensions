@@ -9,13 +9,15 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
     /// </summary>
     public static class ScriptExtensions
     {
-
         /// <summary>
-        /// Gets the object.
+        /// Gets the object specified.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <param name="instance">The script instance to get the object from.</param>
+        /// <param name="key">The key of teh object to get.</param>
+        /// <returns>
+        /// Returns DynValue of type Table for a valid key or a DynValue with a 
+        /// DataType of Nil if teh key is invalid
+        /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// Thrown if the key is null or empty
         /// </exception>
