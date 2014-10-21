@@ -1,4 +1,5 @@
-﻿using Dibware.MoonsharpExtensions.Exceptions;
+﻿using Dibware.Helpers.Validation;
+using Dibware.MoonsharpExtensions.Exceptions;
 using Dibware.MoonsharpExtensions.Resources;
 using MoonSharp.Interpreter;
 using System;
@@ -35,16 +36,69 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
         }
 
         /// <summary>
-        /// Gets the property defined by the specified key.
+        /// Gets the member specified by key.
+        /// </summary>
+        /// <param name="instance">The instance to get member from.</param>
+        /// <param name="key">The key of the member to get.</param>
+        /// <returns>
+        /// Returns the value of the member, or null if the member does not exist.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown if the key is null or empty
+        /// </exception>
+        public static DynValue GetMember(this DynValue instance, String key)
+        {
+            // Guard against a NULL key having been supplied
+            Guard.ArgumentIsNotNullOrEmpty(key, "key");
+
+            // Get the value. This will throw an "System.ArgumentOutOfRangeException"
+            // for us if the key does not exist. However See DEV NOTE above...
+            var tableValue = instance.Table.Get(key);
+
+            // Get the type of the table value
+            DataType tableValueDataType = tableValue.Type;
+
+            // See if a nil type was returned indicating the key did not exist...
+            if (tableValueDataType == DataType.Nil)
+            {
+                // .. and return null
+                return null;
+            }
+
+            // Return the table value as it is
+            return tableValue;
+        }
+
+        /// <summary>
+        /// Gets the value of the property defined by the specified key.
         /// </summary>
         /// <typeparam name="T">Defines thr expected return type.</typeparam>
-        /// <param name="instance">The instance.</param>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        public static T GetProperty<T>(this DynValue instance, String key)
+        /// <param name="instance">The instance to get property from.</param>
+        /// <param name="key">The key of the property to get.</param>
+        /// <returns>
+        /// Returns the value of the property, or the default value for the 
+        /// target type if the property does not exist.
+        /// </returns>
+        /// <exception cref="TypeParameterException">
+        /// Thrown if the target type is not in the acceptable list of CLR types
+        /// </exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown if the key is null or empty
+        /// </exception>
+        /// <exception cref="System.InvalidCastException">
+        /// Thrown if the source (property value) and target types do not match
+        /// </exception>
+        public static T GetPropertyValue<T>(this DynValue instance, String key)
         {
+            // DEV NOTE:
+            // Need to refactor this method to use the "GetMember()" method once
+            // it has passed tests...
+
+            // Get the target type
+            Type targetType = typeof(T);
+
             // Guard against un-acceptable types, throw exception
-            if (!_acceptedTypes.Contains(typeof(T)))
+            if (!_acceptedTypes.Contains(targetType))
             {
                 throw new TypeParameterException(ExceptionMesssages.InvalidTypeParameterEncountered);
             }
@@ -69,7 +123,7 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
             // for us if the key does not exist. However See DEV NOTE above...
             var tableValue = instance.Table.Get(key);
 
-            // Get the type of teh table value
+            // Get the type of the table value
             DataType tableValueDataType = tableValue.Type;
 
             // See if a nil type was returned indicating the key did not exist
@@ -78,10 +132,16 @@ namespace Dibware.MoonsharpExtensions.InterpreterExtensions
                 return default(T);
             }
 
-            // ensure the value Type and the specified return type match
-            if (typeof(T) != GetMappedCLRType(tableValueDataType))
+            // Ensure the value Type and the specified return type match
+            if (targetType != GetMappedCLRType(tableValueDataType))
             {
-                throw new TypeParameterException();
+                // They don't so throw a casting exception
+                String errorMessage = String.Format(
+                    ExceptionMesssages.CannotCastSourceToTarget,
+                    tableValueDataType.ToString(),
+                    targetType.ToString()
+                );
+                throw new InvalidCastException(errorMessage);
             }
 
             // Return the table value cast as the desired Type

@@ -61,6 +61,15 @@ namespace Dibware.MoonsharpExtensions.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot cast the source type {0} to target type {1}.
+        /// </summary>
+        internal static string CannotCastSourceToTarget {
+            get {
+                return ResourceManager.GetString("CannotCastSourceToTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} is not supported.
         /// </summary>
         internal static string DataTypeNotSupported {

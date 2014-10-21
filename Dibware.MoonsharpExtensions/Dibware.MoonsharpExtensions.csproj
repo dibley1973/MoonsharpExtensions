@@ -33,6 +33,9 @@
     <Reference Include="Antlr4.Runtime.net35">
       <HintPath>..\Dibware.MoonsharpExtensions.Shared\Libraries\Antlr4.Runtime.net35.dll</HintPath>
     </Reference>
+    <Reference Include="Dibware.Helpers">
+      <HintPath>..\Dibware.MoonsharpExtensions.Shared\Libraries\Dibware.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="MoonSharp.Interpreter">
       <HintPath>..\Dibware.MoonsharpExtensions.Shared\Libraries\MoonSharp.Interpreter.dll</HintPath>
     </Reference>
