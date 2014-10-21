@@ -19,10 +19,8 @@ There will be two projects / assemblies. These will be:
 ###Dibware.MoonsharpExtensions.InterpreterExtensions
 #### DynValueExtensions
 ##### Public Members
-* GetMember
-* GetProperty
 
-
+###### GetMember
     /// <summary>
     /// Gets the member specified by key.
     /// </summary>
@@ -39,6 +37,7 @@ There will be two projects / assemblies. These will be:
     ...
     }
 
+###### GetProperty
     /// <summary>
     /// Gets the value of the property defined by the specified key.
     /// </summary>
