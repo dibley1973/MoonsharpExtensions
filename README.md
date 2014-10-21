@@ -20,16 +20,16 @@ There will be two projects / assemblies. These will be:
 
 #### ScriptExtensions
 ##### Public Members
-####### GetObject
+###### GetObject
 ```
     /// <summary>
     /// Gets the object specified.
     /// </summary>
     /// <param name="instance">The script instance to get the object from.</param>
-    /// <param name="key">The key of teh object to get.</param>
+    /// <param name="key">The key of the object to get.</param>
     /// <returns>
     /// Returns DynValue of type Table for a valid key or a DynValue with a 
-    /// DataType of Nil if teh key is invalid
+    /// DataType of Nil if the key is invalid
     /// </returns>
     /// <exception cref="System.ArgumentNullException">
     /// Thrown if the key is null or empty
