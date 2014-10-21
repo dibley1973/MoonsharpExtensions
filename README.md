@@ -21,6 +21,7 @@ There will be two projects / assemblies. These will be:
 ##### Public Members
 
 ###### GetMember
+```cs
     /// <summary>
     /// Gets the member specified by key.
     /// </summary>
@@ -36,8 +37,9 @@ There will be two projects / assemblies. These will be:
     {
     ...
     }
-
+```
 ###### GetProperty
+```cs
     /// <summary>
     /// Gets the value of the property defined by the specified key.
     /// </summary>
@@ -61,7 +63,7 @@ There will be two projects / assemblies. These will be:
     {
     ...
     }
-
+```
 
 ### MoonSharp Project
 Please see links below for Xanathar's Moonsharp (Moon#) assembly
