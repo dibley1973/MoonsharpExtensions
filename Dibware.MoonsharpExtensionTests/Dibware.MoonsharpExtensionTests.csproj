@@ -59,6 +59,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="InterpreterExtensions\DynValueExtensionsTests.cs" />
+    <Compile Include="InterpreterExtensions\ScriptExtensionTests.cs" />
+    <Compile Include="MockData\MockLuaScripts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

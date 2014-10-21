@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\TypeParameterException.cs" />
     <Compile Include="InterpreterExtensions\DynValueExtensions.cs" />
+    <Compile Include="InterpreterExtensions\ScriptExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ExceptionMesssages.Designer.cs">
       <AutoGen>True</AutoGen>
