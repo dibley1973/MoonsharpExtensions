@@ -5,6 +5,8 @@ This repository is to contain C# extensions and helpers for use with Xanathar's 
 
 This is a work in progress
 
+### Licence
+MIT License (MIT) (See mit-licence.txt)
 
 ### Architecture
 There will be two projects / assemblies. These will be:
