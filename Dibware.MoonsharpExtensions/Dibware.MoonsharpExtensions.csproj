@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\TypeParameterException.cs" />
+    <Compile Include="InterpreterExtensions\ClosureExtensions.cs" />
     <Compile Include="InterpreterExtensions\DynValueExtensions.cs" />
     <Compile Include="InterpreterExtensions\ScriptExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

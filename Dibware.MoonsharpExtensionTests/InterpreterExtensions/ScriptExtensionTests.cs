@@ -99,6 +99,72 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
         //}
 
         [TestMethod]
+        public void Test_ToDelegateWithOneParameter()
+        {
+            // Arrange
+            String luaScript = @"
+                -- simple square
+                function square (n1)
+                    return n1 * n1
+                end";
+            Script context = new Script();
+            var expectedFunctionResult = 4.0;
+
+            // Act
+            context.DoString(luaScript);
+            var luaFunction = context.Globals.Get("square").Function;
+            Func<double, double> clrFunction =
+                luaFunction.ToDelegate<double, double>();
+
+            // Assert
+            Assert.AreEqual(expectedFunctionResult, clrFunction(2));
+        }
+
+        [TestMethod]
+        public void Test_ToDelegateWithTwoParameters()
+        {
+            // Arrange
+            String luaScript = @"
+                -- simple add
+                function add (n1, n2)
+                    return n1 + n2
+                end";
+            Script context = new Script();
+            var expectedFunctionResult = 5.0;
+
+            // Act
+            context.DoString(luaScript);
+            var luaFunction = context.Globals.Get("add").Function;
+            Func<double, double, double> clrFunction =
+                luaFunction.ToDelegate<double, double, double>();
+
+            // Assert
+            Assert.AreEqual(expectedFunctionResult, clrFunction(2, 3));
+        }
+
+        [TestMethod]
+        public void Test_ToDelegateWithThreeParameters()
+        {
+            // Arrange
+            String luaScript = @"
+                -- simple add3
+                function add3 (n1, n2, n3)
+                    return n1 + n2 + n3
+                end";
+            Script context = new Script();
+            var expectedFunctionResult = 10.0;
+
+            // Act
+            context.DoString(luaScript);
+            var luaFunction = context.Globals.Get("add3").Function;
+            Func<double, double, double, double> clrFunction =
+                luaFunction.ToDelegate<double, double, double, double>();
+
+            // Assert
+            Assert.AreEqual(expectedFunctionResult, clrFunction(2, 3, 5));
+        }
+
+        [TestMethod]
         public void Test_ReadLuaFunctionIntoDictionary()
         {
             // Arrange
@@ -117,7 +183,7 @@ namespace Dibware.MoonsharpExtensionTests.InterpreterExtensions
             var luaFunctionResult = luaFunction.Call(2, 3).Number; // This return result via interpreter
 
             // Hold a reference to the Lua function in a delagate.
-            Func<double, double, double> clrFunction = (n1, n2) => luaFunction.Call(n1, n2).ToObject<int>();
+            Func<double, double, double> clrFunction = (n1, n2) => luaFunction.Call(n1, n2).ToObject<double>();
 
             // Add this into the dictionary
             functionDictionary.Add("add", clrFunction);
